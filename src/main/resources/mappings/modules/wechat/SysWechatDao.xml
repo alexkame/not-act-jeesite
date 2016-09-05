@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.wechat.dao.SysWechatDao">
+    
+	<sql id="sysWechatColumns">
+		a.id AS "id",
+		a.subscribe AS "subscribe",
+		a.openid AS "openid",
+		a.nickname AS "nickname",
+		a.sex AS "sex",
+		a.city AS "city",
+		a.country AS "country",
+		a.province AS "province",
+		a.language AS "language",
+		a.headimgurl AS "headimgurl",
+		a.subscribe_time AS "subscribeTime",
+		a.unionid AS "unionid",
+		a.remark AS "remark",
+		a.groupid AS "groupid",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.status AS "status"
+	</sql>
+	
+	<sql id="sysWechatJoins">
+	</sql>
+    
+	<select id="get" resultType="SysWechat">
+		SELECT 
+			<include refid="sysWechatColumns"/>
+		FROM sys_wechat a
+		<include refid="sysWechatJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysWechat">
+		SELECT 
+			<include refid="sysWechatColumns"/>
+		FROM sys_wechat a
+		<include refid="sysWechatJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysWechat">
+		SELECT 
+			<include refid="sysWechatColumns"/>
+		FROM sys_wechat a
+		<include refid="sysWechatJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_wechat(
+			id,
+			subscribe,
+			openid,
+			nickname,
+			sex,
+			city,
+			country,
+			province,
+			language,
+			headimgurl,
+			subscribe_time,
+			unionid,
+			remark,
+			groupid,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			status
+		) VALUES (
+			#{id},
+			#{subscribe},
+			#{openid},
+			#{nickname},
+			#{sex},
+			#{city},
+			#{country},
+			#{province},
+			#{language},
+			#{headimgurl},
+			#{subscribeTime},
+			#{unionid},
+			#{remark},
+			#{groupid},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{status}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_wechat SET 	
+			subscribe = #{subscribe},
+			openid = #{openid},
+			nickname = #{nickname},
+			sex = #{sex},
+			city = #{city},
+			country = #{country},
+			province = #{province},
+			language = #{language},
+			headimgurl = #{headimgurl},
+			subscribe_time = #{subscribeTime},
+			unionid = #{unionid},
+			remark = #{remark},
+			groupid = #{groupid},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_wechat
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
